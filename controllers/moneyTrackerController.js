@@ -19,9 +19,6 @@ const addData = async (req, res) => {
 const getData = async (req, res) => {
     try {
         const data = await MoneyTracker.find()
-        if (data.length < 1) {
-            return res.status(404).json({ status: false, message: "Data not Found" });
-        }
         res.status(200).json({ status: true, data });
     } catch (error) {
         console.log(error)
@@ -32,16 +29,14 @@ const getData = async (req, res) => {
 
 const deleteData = async (req, res) => {
     try {
-        const data = await MoneyTracker.deleteMany()
-        res.status(200).json({ status: true, message: "Data delete" });
+        const data = await MoneyTracker.deleteMany();
+        res.status(200).json({ status: true, data: [] }); // Remove unnecessary parentheses around []
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).json({ status: false, message: error.message });
-
     }
-}
-
+};
 
 
 module.exports = { addData, getData, deleteData }
